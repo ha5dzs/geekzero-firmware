@@ -1,3 +1,56 @@
+## Geek Zero
+
+~ is a clone of the Flipper, probably developed somewhere around the Shenzhen area, and the PCB is built from scratch based on the open-sourced schematics available. Usually these devices manifest on AliExpress on seemingly non-salient storefronts. Search for 'Upgraded Clipper', 'Electronic Pet Toy', 'Electronic Dolphin', 'Clipper', 'Geek Zero Dolphin 2' and so on.
+
+ Most of the Geek Zero is electronically identical to the original Flipper Zero, but there are a few differences though.
+
+ So far, the identified ones are:
+
+* The One-Time Programmable memory area (OTP) is NOT programmed, and the 'Security Enclave' along with the 'Factory Keys' are missing.
+  * These are NOT open-sourced, so DIY-ers will not be able to use some applications and the universal two-factor (U2F) feature. On the plus side, if the main MCU needs to be replaced, it could be sourced from anywhere.
+* The NFC/RFID antenna is smaller, and the 125 kHz part seems not to be tuned as well: it has reduced reading range and it is unable to read FDX-B (animal) tags that are operating at 134 kHz.
+* The display is different: not only the pixel aspect ratio is off, but the display controller's preferred contrast value is different too.
+* My unit's display backlight is not white: it's green below 25% and very distinctly saffron-esque above 50%, presumably because the poor LEDs are being over-biased.
+* The '5V' pin is labelled as 'VSYS', and is only 5V when the USB is plugged in. Otherwise, it's the lithium battery's voltage. So probably there is no boost converter in it.
+* Speaking of the built-in battery, it is very tiny (probably 300 mAh?) and its thermistor wire is not connected anywhere.
+* It has some additional hardware too. Perhaps most importantly, these are:
+  * CC1101 antenna is not only on the PCB with traces, but is also routed out via an MCX connector in the back.
+  * [Bosch BMI160](https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmi160-ds000.pdf) (the listing calls it 'BM160') inertial sensor, probably connected via SPI, doesn't work with the 'BMI Air Mouse' app downloaded from Flipper Lab
+  * There is a Hall-sensor, but no information about what it is or how it is connected. The white version's backplate shows that it may be read via `PB2` but my black one doesn't say it.
+  * There is a magnet built in at the back, so you can play with various sensors and switches.
+
+
+## Photos
+
+(to be added in a future commit.)
+
+## Modified original firmware for the Geek Zero flipper clone
+
+Not much of a modification really. The display is different, and it needed the default contrast value changed.
+
+For the lazy ones, all I did was to change `CONTRAST_ERC` to 10 in `lib/u8g2/u8g2_glue.c`
+
+
+## Why
+
+It's an open-source project, and someone went through the trouble of building the device from scratch. Wagner had to exist first, in order to get all the other composers responding to Wagner's work. This is just yet another example of this and [is not the only one](https://www.hackster.io/zst123/fcfz-fully-compatible-flipper-zero-e686ba).
+
+This whole thing started when I re-flashed the Momentum firmware and got a completely black screen. The seller was of course not responsive, so I was on my own. Luckily only the contrast was off and the code was relatively easy to navigate and was well-documented.
+
+While these devices have a certain (bad) reputation because some idiots on social media are (mostly pretending) misusing them. In reality, these devices are in fact nothing but an implementation of a microcontroller ecosystem, just like an Arduino. It just happened to be STM32-based and runs a modified version of RTOS, with some quasi-standardised hardware, and has enough developer community around it so it's above critical mass. As a plus, after the first few years of teething problems, the core developers seemingly stopped randomly introducing breaking changes, so I can actually work with it. Collingridge dilemma and the likes.
+
+For my uses in scientific research, I am using my own custom hardware for it that I developed on my own, and for this purpose, I am more than happy to use the stock firmware. Until I hit a snag, that is.
+
+## Installing
+
+Clone this repo to your favourite happy place on your computer, format the micro SD card inside the Geek Zero, and then execute:
+```
+./fbt flash_usb_full
+```
+
+The OTP is not programmed, the name of the device is 'Unknown'. U2F will throw a 'Certificate error', but otherwise the device is usable.
+
+
 <picture>
     <source media="(prefers-color-scheme: dark)" srcset="/.github/assets/dark_theme_banner.png">
     <source media="(prefers-color-scheme: light)" srcset="/.github/assets/light_theme_banner.png">
