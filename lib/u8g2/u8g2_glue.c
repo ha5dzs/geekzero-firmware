@@ -2,7 +2,18 @@
 
 #include <furi_hal.h>
 
-#define CONTRAST_ERC 32
+/*
+ * This is read from the OTP area.
+ * See targets/f7/furi_hal/furi_hal_version.c
+ * Unprogrammed OTP returns 0x00 for some reason.
+ * ERC is 0x01
+ * MGG is 0x02
+ *
+ * In this file, in u8x8_d_st756x_set_contras()t, the fallback option is ERC.
+ * So unprogrammed OTP will be treated as ERC.
+ */
+
+#define CONTRAST_ERC 10
 #define CONTRAST_MGG 28
 
 uint8_t u8g2_gpio_and_delay_stm32(u8x8_t* u8x8, uint8_t msg, uint8_t arg_int, void* arg_ptr) {
@@ -148,8 +159,8 @@ uint8_t u8x8_d_st756x_common(u8x8_t* u8x8, uint8_t msg, uint8_t arg_int, void* a
         c = ((u8x8_tile_t*)arg_ptr)->cnt;
         c *= 8;
         ptr = ((u8x8_tile_t*)arg_ptr)->tile_ptr;
-        /* 
-                The following if condition checks the hardware limits of the st7565 
+        /*
+                The following if condition checks the hardware limits of the st7565
                 controller: It is not allowed to write beyond the display limits.
                 This is in fact an issue within flip mode.
             */
