@@ -1,6 +1,6 @@
 ## Geek Zero
 
-~ is a clone of the Flipper, probably developed somewhere around the Shenzhen area, and the PCB is built from scratch based on the open-sourced schematics available. Usually these devices manifest on AliExpress on seemingly non-salient storefronts. Search for 'Upgraded Clipper', 'Electronic Pet Toy', 'Electronic Dolphin', 'Clipper', 'Geek Zero Dolphin 2' and so on.
+~ is a clone of the Flipper, probably developed somewhere around the Shenzhen area, and the PCB is built from scratch based on the open-sourced schematics available. Usually these devices manifest on AliExpress on seemingly non-salient storefronts. Search for 'Upgraded Clipper', 'Upgraded Clipper with Momentum System', 'Electronic Pet Toy', 'Electronic Dolphin', 'Clipper', 'Geek Zero Dolphin 2' and so on.
 
  Most of the Geek Zero is electronically identical to the original Flipper Zero, but there are a few differences though.
 
@@ -12,17 +12,23 @@
 * The display is different: not only the pixel aspect ratio is off, but the display controller's preferred contrast value is different too.
 * My unit's display backlight is not white: it's green below 25% and very distinctly saffron-esque above 50%, presumably because the poor LEDs are being over-biased.
 * The '5V' pin is labelled as 'VSYS', and is only 5V when the USB is plugged in. Otherwise, it's the lithium battery's voltage. So probably there is no boost converter in it.
-* Speaking of the built-in battery, it is very tiny (probably 300 mAh?) and its thermistor wire is not connected anywhere.
-* It has some additional hardware too. Perhaps most importantly, these are:
+* Speaking of the built-in battery, it is very tiny (and optimistically labelled: 760 mAh) and its thermistor wire is not connected at all.
+* It has some additional hardware too, allegedly. These are:
   * CC1101 antenna is not only on the PCB with traces, but is also routed out via an MCX connector in the back.
-  * [Bosch BMI160](https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmi160-ds000.pdf) (the listing calls it 'BM160') inertial sensor, probably connected via SPI, doesn't work with the 'BMI Air Mouse' app downloaded from Flipper Lab
-  * There is a Hall-sensor, but no information about what it is or how it is connected. The white version's backplate shows that it may be read via `PB2` but my black one doesn't say it.
+  * [Bosch BMI160](https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmi160-ds000.pdf) (the listing calls it 'BM160') inertial sensor, probably connected via SPI, doesn't work with the 'BMI Air Mouse' app downloaded from Flipper Lab. The ony similar packages on the PCB are for battery management. So I think it's safe to say that it's missing from mine. :)
+  * There supposed to be a Hall-sensor, but no information about what it is or how it is connected. The white version's backplate shows that it may be read via `PB2` but my black one doesn't say it. I believe it is the missing U23 component. The pinout would match with an [AH1806](https://www.diodes.com/assets/Datasheets/AH1806.pdf), and a small decoupling capacitor is missing too.
   * There is a magnet built in at the back, so you can play with various sensors and switches.
 
 
-## Photos
+## [Photos](/documentation/geekzero_photos)
 
-(to be added in a future commit.)
+There is a scan of the PCBs in the link above.
+
+![](/documentation/geekzero_photos/firmware_reflashed_too_much_contrast_2.jpg)
+![](/documentation/geekzero_photos/firmware_reflashed_too_much_contrast_1.jpg)
+![](/documentation/geekzero_photos/split_open_2.jpg)
+![](/documentation/geekzero_photos/split_open_3.jpg)
+
 
 ## Modified original firmware for the Geek Zero flipper clone
 
