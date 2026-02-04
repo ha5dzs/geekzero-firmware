@@ -36,6 +36,10 @@ Not much of a modification really. The display is different, and it needed the d
 
 For the lazy ones, all I did was to change `CONTRAST_ERC` to 10 in `lib/u8g2/u8g2_glue.c`
 
+I also reduced the backlight current. 150 mA for AlGaP green LEDs were a tad too much. It feels much happier at 20 mA.
+
+`LED_CURRENT_WHITE` was set to  `(20u)` in `targets/f7/furi_hal/furi_hal_light.c`
+
 
 ## Why
 
