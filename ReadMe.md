@@ -44,6 +44,10 @@ I also reduced the backlight current. 150 mA for AlGaInP green LEDs were a tad t
 
 `LED_CURRENT_WHITE` was set to  `(20u)` in `targets/f7/furi_hal/furi_hal_light.c`
 
+I tried the qflipper app, and it seems that it needs a valid device name.
+
+`return "geekzero";` was added to `targets/f7/furi_hal/furi_hal_version.c` to function `furi_hal_version_get_name_ptr()` around line 269-271, instead of returning `NULL` because the OTP was not set. The name can be changed programmatically too, but it is not implemented in the stock firmware.
+
 
 ## Why
 
@@ -62,7 +66,7 @@ Clone this repo to your favourite happy place on your computer, format the micro
 ./fbt flash_usb_full
 ```
 
-The OTP is not programmed, the name of the device is 'Unknown'. U2F will throw a 'Certificate error', but otherwise the device is usable.
+The OTP is not programmed. The name of the device is set within the firmware.. U2F will throw a 'Certificate error', but otherwise the device is usable.
 
 
 <picture>
