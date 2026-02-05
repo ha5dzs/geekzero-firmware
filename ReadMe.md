@@ -46,7 +46,7 @@ I also reduced the backlight current. 150 mA for AlGaInP green LEDs were a tad t
 
 I tried the qflipper app, and it seems that it needs a valid device name.
 
-`return "geekzero";` was added to `targets/f7/furi_hal/furi_hal_version.c` to function `furi_hal_version_get_name_ptr()` around line 269-271, instead of returning `NULL` because the OTP was not set. The name can be changed programmatically too, but it is not implemented in the stock firmware.
+`return *furi_hal_version.name == 0x00 ? "geekzero" : furi_hal_version.name;` was added to `targets/f7/furi_hal/furi_hal_version.c` to function `furi_hal_version_get_name_ptr()` around line 269-271, instead of returning `NULL` because the OTP was not set. The name can be changed programmatically too, but it is not implemented in the stock firmware.
 
 
 ## Why
