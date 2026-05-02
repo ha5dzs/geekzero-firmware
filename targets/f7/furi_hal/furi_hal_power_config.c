@@ -1,5 +1,12 @@
 #include <bq27220_data_memory.h>
 
+/*
+ * The original Flipper comes with a 2100 mAh battery.
+ * This is a 'cheap' clone, so it comes with a cheap battery too.
+ * If the battery gauge misbehaves, adjust this value.
+*/
+#define GEEKZERO_ACTUAL_BATTERY_CAPACITY_MAH 760
+
 const BQ27220DMGaugingConfig furi_hal_power_gauge_data_memory_gauging_config = {
     .CCT = 1,
     .CSYNC = 0,
@@ -21,12 +28,12 @@ const BQ27220DMData furi_hal_power_gauge_data_memory[] = {
     {
         .address = BQ27220DMAddressGasGaugingCEDVProfile1FullChargeCapacity,
         .type = BQ27220DMTypeU16,
-        .value.u16 = 2100,
+        .value.u16 = GEEKZERO_ACTUAL_BATTERY_CAPACITY_MAH,
     },
     {
         .address = BQ27220DMAddressGasGaugingCEDVProfile1DesignCapacity,
         .type = BQ27220DMTypeU16,
-        .value.u16 = 2100,
+        .value.u16 = GEEKZERO_ACTUAL_BATTERY_CAPACITY_MAH,
     },
     {
         .address = BQ27220DMAddressGasGaugingCEDVProfile1EMF,
