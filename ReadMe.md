@@ -38,13 +38,13 @@ There is a scan of the PCBs in the link above.
 
 There are a few, minimal modifications, but they do not break compatibility. These are:
 
-* The display is different, and it needed the default contrast value changed.
+* **The display is different, and it needed the default contrast value changed.**
 In `lib/u8g2/u8g2_glue.c`, `CONTRAST_ERC` was reduced to `10`.
-* The backlight LED current was excessive.
+* **The backlight LED current was excessive.**
 In `targets/f7/furi_hal/furi_hal_light.c`, `LED_CURRENT_WHITE` was set to  `(20u)`. The default 150 mA for AlGaInP green LEDs were a tad too much, they turned yellow screaming for help. Everything feels much happier at 20 mA.
-* The `qflipper` refused to communicate, because the device didn't have valid name.
+* **The `qflipper` refused to communicate, because the device didn't have valid name.**
 In `targets/f7/furi_hal/furi_hal_version.c`, in function `furi_hal_version_get_name_ptr()` around line 269-271, `return *furi_hal_version.name == 0x00 ? "geekzero" : furi_hal_version.name;` was added to prevent returning `NULL` when the OTP is not set. Instead, it now returns `geekzero`.
-* The battery gauge display shows garbage
+* **The battery charge indicator showed garbage**
 In `targets/f7/furi_hal_power_config.c`, `GEEKZERO_ACTUAL_BATTERY_CAPACITY_MAH` is now defined as 760, and `furi_hal_power_gauge_data_memory` structure array's `Q27220DMAddressGasGaugingCEDVProfile1FullChargeCapacity` and `BQ27220DMAddressGasGaugingCEDVProfile1DesignCapacity` values were set to this define.
 
 ## Why
