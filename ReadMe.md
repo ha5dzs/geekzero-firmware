@@ -16,6 +16,7 @@
 * Speaking of the built-in battery, it is very tiny (and optimistically labelled: 760 mAh) and its thermistor wire is not connected at all.
 * It has some additional hardware too, allegedly. These are:
   * CC1101 antenna is not only on the PCB with traces, but is also routed out via an MCX connector in the back.
+    * Unfortunately its 26 MHz reference oscillator is the high (~100 ppm) tolerance version, which leads to an about 50 kHz offset on 433 MHz. Unfortunately the offsets will be unique to each device and the firmware is hard-coded, and it is impossible to compensate for without using RF equipment. For AM and FSK, they MAY be OK.
   * [Bosch BMI160](https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmi160-ds000.pdf) (the listing calls it 'BM160') inertial sensor.
     * I think it's safe to say that it's missing from mine. The 'BMI Air Mouse' app doesn't work, and there is no Bosch IC on any of the PCBs :)
   * There supposed to be a Hall-sensor on top of the display, but no information about what it is or how it is connected.
